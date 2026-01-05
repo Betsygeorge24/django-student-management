@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if student %}Update Student{% else %}Student Enrollment{% endif %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f8;
+            margin: 50px;
+        }
+        .form-container {
+            background-color: #fff;
+            max-width: 400px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+        }
+        h2 { text-align: center; color: #333; }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover { background-color: #45a049; }
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>
+        {% if student %}
+            Update Student Details
+        {% else %}
+            Student Enrollment Form
+        {% endif %}
+    </h2>
+
+    <!-- ✅ Dynamically set form action -->
+   <form method="POST" 
+      enctype="multipart/form-data"
+      {% if student %}action="{% url 'edit_student' student.id %}"{% else %}action="{% url 'enroll_student' %}"{% endif %}>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">
+        {% if student %}Update{% else %}Submit{% endif %}
+    </button>
+</form>
+
+    
+</div>
+</body>
+</html>
